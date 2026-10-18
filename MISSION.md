@@ -2,34 +2,69 @@
 
 ## What this exists for
 
-Mycelium lets someone without the original context — the same user months later, a fresh agent session, or a teammate the user shares the knowledge base with — reuse the way the user thinks through problems. Each time a decision is made, it records the case: how the problem was actually solved. Over time it distills the principles that recur across cases. When a new decision point comes up, it puts both in front of the agent, whichever supported agent tool is running and whatever the domain.
-
-What it keeps is problem-solving know-how: what to check first, how a symptom was diagnosed, which definition ended a dispute, how a large problem was broken down — together with the team-specific facts that know-how depends on. It also tracks project status, so that a new session knows where the work stands.
+- Mycelium is the shared memory of a team that works with AI agents.
+- It keeps these in one place:
+  - the documents that the team produces and gathers;
+  - what the team learns from doing the work;
+  - the facts that both rest on.
+- Its purpose is that anyone on the team, or any agent that works for them, can do these things:
+  - find what is already known;
+  - use what others learned in situations that they never saw;
+  - know what is still true.
+- Nobody has to write or curate a knowledge base by hand for this.
 
 ## Success looks like
 
-- **Reuse** — an agent with no memory of the original work uses a past principle or case at a decision point and makes a better decision because of it, including when the new problem is in a different domain from the one the knowledge came from.
-- **Advisory recall** — principles inform the agent; they never direct it. The agent decides whether a principle applies, and setting aside one that does not fit is correct use.
-- **Grounding** — every principle that synthesis produces stays linked to the cases it came from, so the conditions and facts behind it are one step away.
-- **Synthesis** — as cases accumulate, principles get sharper, not just more numerous: broad principles split, overlapping ones merge, and cases where a principle did not fit narrow the conditions under which it applies.
-- **Low friction** — capturing a case costs the user one short multiple-choice answer, asked only at a natural point. New principles reach the agent without the user reviewing them, and nobody has to write a knowledge article.
-- **Continuity** — a new session in a project starts knowing the project's phase, health, next steps, and what is waiting on the user.
-- **Agent-agnosticism** — one knowledge base serves the Claude Code, Codex, and pi agent tools, and nothing depends on a particular model or tool. Korean and English work equally well in capture and search.
-- **Durability** — the event log is append-only apart from deliberate removal of sensitive content, and readable by people; every index, view, and principle list can be rebuilt from it.
-- **Safety** — credentials and personal data stay out of the log, and anything that gets in can be found and removed.
+- **Findability** — a person, directly or through their agent, finds anything the team holds that they may see, however it was worded and whoever wrote it.
+- **Reuse** — a person or an agent without the original context does better because of what someone else learned, including in a different domain.
+- **Grounding** — every piece of knowledge leads to where it came from and what it depends on, and shows how well it is supported.
+- **Improves with use** — what happens when knowledge is used makes it better, and the knowledge never stops the team from finding better approaches.
+- **Advisory** — knowledge informs and never directs.
+- **Currency and correction** — people can see what is still valid, how the work stands, and what changed. Wrong knowledge gets corrected, and the correction reaches everything that relied on it.
+- **Continuity** — a new session, or a person who joins, returns, switches between parallel work, or takes over another's work, starts already knowing where the work stands.
+- **Low friction** — knowledge accumulates as a side effect of the work, and reaches people without getting in the way of the work.
+- **Many people, many years** — the quality holds when many people write, read, correct, and disagree at once, for years. The upkeep stays small and spread across them.
+- **Agent-agnosticism** — nothing depends on a particular agent tool or model.
+- **Durability** — nothing the team wrote is lost by accident, knowledge outlives changes of models and tools, and people can read the records without the system.
+- **Safety** — credentials and personal data stay out, and anything that gets in can be removed completely. The team controls who sees what and where its data goes.
 
 ## Explicitly NOT goals
 
-- Being a general document store, wiki, or search engine.
-- Replacing the agent's own judgment or its usual checks. A principle adds to what the agent would have done; it never stands in for it.
-- Enforcing principles. Nothing blocks or forces an action because of a principle.
-- Deriving a principle from a single case. A pattern seen once stays a case. The user can still enter a principle directly.
-- Keeping transcripts. Only decision points become part of the log; prompt text is held briefly on the device to verify quotes and then deleted.
-- Requiring a server, a hosted service, or a vector database. One machine and a git remote are enough.
-- Governing knowledge between people — ownership, access control, reconciling competing views from different authors. This repository specifies one user's knowledge base, which a teammate can read or extend through the same git remote.
+- Replacing the judgment or the usual checks of an agent or a person.
+- Enforcing any rule because the knowledge base contains it.
+- Assuming a kind of work, a field, or a tool. A team of one is a team.
+- Syncing from outside work tools, or acting as a version-control system.
+
+## How the documents relate
+
+Four documents define the product. Each decision has one home.
+
+- **MISSION** (this document) owns purpose, success, and scope.
+- **PRINCIPLES** owns the primitives and the invariants that hold for every one of them, with their precedence and named exceptions.
+- **DESIGN** owns the mechanisms: how the primitives work together to meet the success criteria, and why each mechanism has its shape.
+- **CONTRACTS** owns observable behavior: the data model, the conditions and effects that an implementation must produce, the tunables, and the acceptance properties.
+  - Its core holds what every deployment needs.
+  - Its modules hold self-contained parts behind one switch or one view.
+  - Its appendices hold tables to look up.
+
+How each document is read:
+
+- MISSION, PRINCIPLES, and DESIGN are for one person to read in full.
+- CONTRACTS is for looking up.
+
+How the documents stay consistent:
+
+- A lower document refines a higher one. It never silently amends it.
+- A contradiction is a defect in the lower document. The fix goes where the decision lives.
+- Checks run both ways:
+  - consistency downward: each contract cites the mechanism and the invariants that it serves;
+  - sufficiency upward: the mechanisms together must yield every success criterion.
+- A new rule comes only when the existing mechanisms leave an important failure open. Before that, the existing mechanism is applied or gets a new value.
+- Renderings, wordings, examples, and test fixtures are not normative. They live in the reference.
 
 ## Stakeholders
 
-Maintainer: ilgyu-yi (decision maker). Primary users: one person who works with coding and research agents, and the agents that read and write the knowledge base on that person's behalf.
+- Maintainer: ilgyu-yi (decision maker).
+- Primary users: teams of people who work with AI agents, and the agents that read and write the knowledge base for them.
 
-## Last reviewed: 2026-10-15
+## Last reviewed: 2026-10-17
